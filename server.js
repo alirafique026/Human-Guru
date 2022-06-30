@@ -10,19 +10,9 @@ const fs = require('fs')
 
 
 // Connecting to Database
-// mongoose.connect('mongodb://localhost/blog', {
-//   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
-// })
-
-
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://admin:<password>@cluster0.w8wkz9v.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+mongoose.connect('mongodb+srv://admin:humanguru@cluster0.w8wkz9v.mongodb.net/?retryWrites=true&w=majority', {
+  useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
+})
 
 
 app.set('view engine', 'ejs')
@@ -142,6 +132,6 @@ app.get("*",function(req,res)
 	});
 
 console.log("server has started...")
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 4000
 app.listen(port)
 
