@@ -10,9 +10,20 @@ const fs = require('fs')
 
 
 // Connecting to Database
-mongoose.connect('mongodb://localhost/blog', {
-  useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
-})
+// mongoose.connect('mongodb://localhost/blog', {
+//   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
+// })
+
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://admin:<password>@cluster0.w8wkz9v.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 
 app.set('view engine', 'ejs')
 app.use(express.static("public"));
