@@ -7,7 +7,10 @@ const methodOverride = require('method-override')
 const app = express()
 const multer  = require('multer')
 const fs = require('fs')
+const dotenv = require("dotenv")
 
+
+dotenv.config()
 
 // Connecting to Database
 mongoose.connect(process.env.DATABASE,{
