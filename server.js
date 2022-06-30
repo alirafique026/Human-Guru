@@ -131,5 +131,6 @@ app.get("*",function(req,res)
 	});
 
 console.log("server has started...")
-app.listen(4000)
+const port = process.env.PORT || 5000
+app.listen(port)
 
