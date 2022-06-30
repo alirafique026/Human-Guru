@@ -10,7 +10,7 @@ const fs = require('fs')
 
 
 // Connecting to Database
-mongoose.connect('mongodb+srv://admin:humanguru@cluster0.w8wkz9v.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DATABASE,{
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
 })
 
