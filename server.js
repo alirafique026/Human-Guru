@@ -119,14 +119,16 @@ app.get('/all', async (req, res) => {
   res.redirect('articles/all')
 })
 
+
+
+app.use('/articles', articleRouter)
+
+
 // For error page
 app.get("*",function(req,res)
 	{
 		res.render("error.ejs");
 	});
-
-app.use('/articles', articleRouter)
-
 
 console.log("server has started...")
 app.listen(4000)
