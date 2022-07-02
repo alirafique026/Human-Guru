@@ -34,7 +34,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  latest: {
+  trending: {
     type: String,
     required: false
   },
@@ -43,6 +43,10 @@ const articleSchema = new mongoose.Schema({
   },
   comments: {
     type: Array
+  },
+  category: {
+    type: String,
+    required: true
   }
 })
 

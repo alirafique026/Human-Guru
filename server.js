@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Article = require('./models/article')
+const Category = require('./models/category')
 const articleRouter = require('./routes/articles')
 const bodyParser = require("body-parser")
 const methodOverride = require('method-override')
@@ -40,7 +41,9 @@ var storage = multer.diskStorage({
 // Home Page
 app.get('/',async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('home' , {articles: articles})
+  const categories = await Category.find()
+  console.log(categories)
+  res.render('home' , {articles: articles, categories: categories})
 })
 
 // About Page
@@ -73,6 +76,8 @@ app.post('/profile', upload.single('avatar'), async function (req, res, next) {
 //  in case they are replaced from admin panel
  const append = './public'
  const appended = append.concat(article.path)
+
+ // Deleting old file in case of replace
  fs.unlink(appended, (err) => {
   if (err) {
     console.error(err)
@@ -93,10 +98,38 @@ app.post('/profile', upload.single('avatar'), async function (req, res, next) {
 })
 
 
-// app.get('/all', async (req, res) => {
-//   const articles = await Article.find().sort({ createdAt: 'desc' })
-//   res.render('articles/index', { articles: articles })
-// })
+// Storing Banner to directory
+app.post('/banner', upload.single('banner'), async function (req, res, next) {
+
+  // removing 'public' from path because images do not load in ejs file
+ const path = req.file.path.replace('public','');
+ 
+ const id = req.body.id
+ let categories = await Category.findById(id)
+ //Adding 'public' to path to remove images 
+// in case they are replaced from admin panel
+ const append = './public'
+ const appended = append.concat(categories.catimg)
+
+// Deleting old file in case of replace
+ fs.unlink(appended, (err) => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  //file removed
+})
+
+// Storing category banner path to database
+ categories.catimg = path
+ try {
+  categories = await categories.save()
+  res.redirect('back');
+} catch (e) {
+  console.log(e);
+}
+})
+
 
 // Posting comments
 app.post('/comments', async function (req, res, next) {

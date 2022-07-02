@@ -11,13 +11,22 @@
   <label for="markdown">Markdown</label>
   <textarea required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
+
 <div class="form-group">
-  <script>
-    var check = document.getElementById('latest')
-    if (article.latest == "latest") { check.checked = true; } else { check.checked = false; }
-  </script>
-  <input type="checkbox" id="latest" name="latest" value="latest">
-  <label for="latest"> Is Latest Post</label>
+  <label for="category">Choose a category:</label>
+<select name="category" id="category">
+  <option value="<%= article.category %>" selected><%= article.category %></option>
+  <% categories.forEach(categories => { %>
+  <option value="<%= categories.category%>"><%= categories.category%></option>
+  <%})%>
+</select>
+</div>
+
+<div class="form-group">
+  <% if(article.trending == "trending") {%>
+  <% val = "checked"}%>
+  <input type="checkbox" id="trending" name="trending" value="trending" <%=val%> >
+  <label for="trending"> Is Trending</label>
 </div>
 
 
