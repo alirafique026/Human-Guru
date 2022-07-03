@@ -43,7 +43,8 @@ var storage = multer.diskStorage({
 app.get('/',async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
   const categories = await Category.find()
-  res.render('home' , {articles: articles, categories: categories})
+  const video = await Video.find()
+  res.render('home' , {articles: articles, categories: categories, videos: video})
 })
 
 // About Page
