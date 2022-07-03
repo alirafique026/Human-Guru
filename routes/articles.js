@@ -141,18 +141,18 @@ function deletebanner(path) {
 }
 
 // Displaying all Videos
-router.get('/video', async (req, res) => {
+router.get('/video', isLoggedIn, async (req, res) => {
   const video = await Video.find()
   res.render('videos/video', { videos: video })
 })
 
 // Adding New Video
-router.get('/video/new', async (req, res) => {
+router.get('/video/new', isLoggedIn, async (req, res) => {
   const categories = await Category.find()
   res.render('videos/new-video', { categories: categories })
 })
 
-router.post('/video/new', async (req, res) => {
+router.post('/video/new', isLoggedIn, async (req, res) => {
   let video = await new Video
   video.title = req.body.title
   video.source = req.body.source
@@ -167,13 +167,13 @@ router.post('/video/new', async (req, res) => {
 })
 
 // Editing Video
-router.get('/video/edit/:id', async (req, res) => {
+router.get('/video/edit/:id', isLoggedIn, async (req, res) => {
   const categories = await Category.find()
   const video = await Video.findById(req.params.id)
   res.render('videos/edit-video', { videos: video, categories: categories })
 })
 
-router.post('/video/edit/:id', async (req, res) => {
+router.post('/video/edit/:id', isLoggedIn, async (req, res) => {
   let video = await Video.findById(req.params.id)
   video.title = req.body.title
   video.source = req.body.source
@@ -193,7 +193,7 @@ router.post('/video/edit/:id', async (req, res) => {
 })
 
 // Deleting video
-router.delete('/video/:id', async (req, res) => {
+router.delete('/video/:id', isLoggedIn, async (req, res) => {
   const id = req.params.id
   const video = await Video.findById(id)
   const cat = video.category
