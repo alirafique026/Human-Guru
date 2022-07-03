@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Article = require('./models/article')
 const Category = require('./models/category')
+const Video = require('./models/video')
 const articleRouter = require('./routes/articles')
 const bodyParser = require("body-parser")
 const methodOverride = require('method-override')
@@ -151,9 +152,17 @@ app.post('/comments', async function (req, res, next) {
  }
  })
 
-// Fetching all posts in admin panel
+// Redirecting links to admin panel
 app.get('/all', async (req, res) => {
   res.redirect('articles/all')
+})
+
+app.get('/category', async (req, res) => {
+  res.redirect('articles/category')
+})
+
+app.get('/video', async (req, res) => {
+  res.redirect('articles/video')
 })
 
 

@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Article = require('./../models/article')
 const Category = require('./../models/category')
+const Video = require('./../models/video')
 const fs = require('fs')
 const router = express.Router(),
   passport = require("passport"),
@@ -139,6 +140,67 @@ function deletebanner(path) {
   })
 }
 
+// Displaying all Videos
+router.get('/video', async (req, res) => {
+  const video = await Video.find()
+  res.render('videos/video', { videos: video })
+})
+
+// Adding New Video
+router.get('/video/new', async (req, res) => {
+  const categories = await Category.find()
+  res.render('videos/new-video', { categories: categories })
+})
+
+router.post('/video/new', async (req, res) => {
+  let video = await new Video
+  video.title = req.body.title
+  video.source = req.body.source
+  video.category = req.body.category.toLowerCase()
+  Category.findOneAndUpdate({ category: video.category }, { $inc: { 'counter': 1 } }).exec()
+  try {
+    video = await video.save()
+    res.redirect('/articles/video');
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+// Editing Video
+router.get('/video/edit/:id', async (req, res) => {
+  const categories = await Category.find()
+  const video = await Video.findById(req.params.id)
+  res.render('videos/edit-video', { videos: video, categories: categories })
+})
+
+router.post('/video/edit/:id', async (req, res) => {
+  let video = await Video.findById(req.params.id)
+  video.title = req.body.title
+  video.source = req.body.source
+  let cat = video.category
+  video.category = req.body.category.toLowerCase()
+  if (cat !== video.category) {
+    Category.findOneAndUpdate({ category: cat }, { $inc: { 'counter': -1 } }).exec()
+    Category.findOneAndUpdate({ category: video.category }, { $inc: { 'counter': 1 } }).exec()
+
+  }
+  try {
+    video = await video.save()
+    res.redirect('/articles/video');
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+// Deleting video
+router.delete('/video/:id', async (req, res) => {
+  const id = req.params.id
+  const video = await Video.findById(id)
+  const cat = video.category
+  await Video.findByIdAndDelete(id)
+  Category.findOneAndUpdate({ category: cat }, { $inc: { 'counter': -1 } }).exec()
+  res.redirect('/articles/video')
+})
 
 
 // Fetching all posts in admin panel
@@ -199,12 +261,12 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
   const categ = article.category
   await Article.findByIdAndDelete(id)
   res.redirect('/all')
-  deletefile(path,categ)
+  deletefile(path, categ)
 })
 
 // Deleting files and category counter related to deleted post
-function deletefile(path,categ) {
-  Category.findOneAndUpdate({category: categ}, { $inc: {'counter': -1 }}).exec()
+function deletefile(path, categ) {
+  Category.findOneAndUpdate({ category: categ }, { $inc: { 'counter': -1 } }).exec()
   const append = './public'
   const appended = append.concat(path)
   fs.unlink(appended, (err) => {
@@ -231,10 +293,9 @@ function saveArticleAndRedirect(path) {
     // Saving keywords
     let kw = words.split(',')
     article.keywords = kw
-    if(cat !== article.category)
-    {
-      Category.findOneAndUpdate({category: cat}, { $inc: {'counter': -1 }}).exec()
-      Category.findOneAndUpdate({category: article.category}, { $inc: {'counter': 1 }}).exec()
+    if (cat !== article.category) {
+      Category.findOneAndUpdate({ category: cat }, { $inc: { 'counter': -1 } }).exec()
+      Category.findOneAndUpdate({ category: article.category }, { $inc: { 'counter': 1 } }).exec()
 
     }
     try {

@@ -1,48 +1,118 @@
 <%- include('partials/header') -%>
+	<style>
+		#fade {
+			display: none;
+			position: fixed;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index: 1001;
+			-moz-opacity: 0.8;
+			opacity: .80;
+			filter: alpha(opacity=80);
+		}
 
-		<!-- top-images-section 
+		#light {
+			display: none;
+			position: absolute;
+			top: 65%;
+			left: 50%;
+			max-width: 600px;
+			max-height: 360px;
+			margin-left: -300px;
+			margin-top: -180px;
+			border: 2px solid #FFF;
+			background: #FFF;
+			z-index: 1002;
+			overflow: visible;
+		}
+
+		#boxclose {
+			float: right;
+			cursor: pointer;
+			color: #fff;
+			border: 1px solid #AEAEAE;
+			border-radius: 3px;
+			background: #222222;
+			font-size: 31px;
+			font-weight: bold;
+			display: inline-block;
+			line-height: 0px;
+			padding: 11px 3px;
+			position: absolute;
+			right: 2px;
+			top: 2px;
+			z-index: 1002;
+			opacity: 0.9;
+		}
+
+		.boxclose:before {
+			content: "×";
+		}
+
+		#fade:hover~#boxclose {
+			display: none;
+		}
+
+		.test:hover~.test2 {
+			display: none;
+		}
+	</style>
+
+	<script>
+		window.document.onkeydown = function (e) {
+			if (!e) {
+				e = event;
+			}
+			if (e.keyCode == 27) {
+				lightbox_close();
+			}
+		}
+
+		function lightbox_open() {
+			var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+			window.scrollTo(0, 0);
+			document.getElementById('light').style.display = 'block';
+			document.getElementById('fade').style.display = 'block';
+			lightBoxVideo.play();
+		}
+
+		function lightbox_close() {
+			var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+			document.getElementById('light').style.display = 'none';
+			document.getElementById('fade').style.display = 'none';
+			lightBoxVideo.pause();
+		}
+	</script>
+	<!-- top-images-section 
 			================================================== -->
-		<section class="top-slider-section background-grey">
-			<div class="container">
-				<div class="top-slider-box text-center">
-					<div class="owl-wrapper">
-						<div class="owl-carousel" data-num="1">
-			
-							<div class="item">
-								<div class="news-post image-post">
-									<img src="/images/upload/blog/home4/sl1.jpg" alt="">
-									<div class="hover-post">
-										<div><a class="category-link" href="#">Travel</a></div>
-										<h2><a href="single-post.html">Integer vitae libero acrisus egestas.</a></h2>
-										<ul class="post-tags">
-											<li><a href="#">3 comments</a></li>
-											<li>3 days ago</li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-									</div>
+	<section class="top-slider-section background-grey">
+		<div class="container">
+			<div class="top-slider-box text-center">
+				<div class="owl-wrapper">
+					<div class="owl-carousel" data-num="1">
+
+						<div class="item">
+							<div class="news-post image-post">
+								<img src="/images/upload/blog/home4/sl1.jpg" alt="">
+								<div class="hover-post">
+									<div><a class="category-link" href="#">Travel</a></div>
+									<h2><a href="single-post.html">Integer vitae libero acrisus egestas.</a></h2>
+									<ul class="post-tags">
+										<li><a href="#">3 comments</a></li>
+										<li>3 days ago</li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
 								</div>
 							</div>
+						</div>
 
-							<% categories.forEach(categories => { %>
-								<div class="item">
-									<div class="news-post image-post">
-										<img src="<%= categories.catimg%>" alt="">
-										<div class="hover-post">
-											<div><a class="category-link" href="#">Lifestyle</a></div>
-											<h2><a href="single-post.html">Praesent placerat risus quis eros.</a></h2>
-											<ul class="post-tags">
-												<li><a href="#">3 comments</a></li>
-												<li>3 days ago</li>
-												<li>by <a href="#">John Smith</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<% }) %>
-			
+						<% categories.forEach(categories=> { %>
 							<div class="item">
 								<div class="news-post image-post">
-									<img src="/images/upload/blog/home4/sl2.jpg" alt="">
+									<img src="<%= categories.catimg%>" alt="">
 									<div class="hover-post">
 										<div><a class="category-link" href="#">Lifestyle</a></div>
 										<h2><a href="single-post.html">Praesent placerat risus quis eros.</a></h2>
@@ -54,38 +124,62 @@
 									</div>
 								</div>
 							</div>
+							<% }) %>
 
-						</div>
-						
+								<div class="item">
+									<div class="news-post image-post">
+										<img src="/images/upload/blog/home4/sl2.jpg" alt="">
+										<div class="hover-post">
+											<div><a class="category-link" href="#">Lifestyle</a></div>
+											<h2><a href="single-post.html">Praesent placerat risus quis eros.</a></h2>
+											<ul class="post-tags">
+												<li><a href="#">3 comments</a></li>
+												<li>3 days ago</li>
+												<li>by <a href="#">John Smith</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
 					</div>
+
 				</div>
 			</div>
-		</section>
-		<!-- End top-images section -->
+		</div>
+	</section>
+	<!-- End top-images section -->
 
-		<!-- fresh-section2 
+	<!-- fresh-section2 
 			================================================== -->
-		<section class="fresh-section2">
-			<div class="container">
-				<div class="title-section text-center">
-					<h1>Trending Posts</h1>
-				</div>
-				<div class="fresh-box">
-					<div class="row">
-						<% articles.forEach(article => { %>
-						<div class="col-lg-4 col-md-6">
-							<div class="news-post standard-post left-align">
-								<div class="image-holder">
-									<a href="articles/<%= article.slug %>"><img src="<%= article.path %>" alt="" style="min-height: 196px; max-height: 196px; min-width: 300px; max-width: 300px;"></a>
+	<section class="fresh-section2">
+		<div class="container">
+			<div class="title-section text-center">
+				<h1>Trending Posts</h1>
+			</div>
+			<div class="fresh-box">
+				<div class="row">
+					<% articles.forEach(article=> { %>
+						<%if(article.trending=="trending" ) {%>
+							<div class="col-lg-4 col-md-6">
+								<div class="news-post standard-post left-align">
+									<div class="image-holder">
+										<a href="articles/<%= article.slug %>"><img src="<%= article.path %>" alt=""
+												style="min-height: 196px; max-height: 196px; min-width: 300px; max-width: 300px;"></a>
+									</div>
+									<a class="text-link" href="#">
+										<%= article.category %>
+									</a>
+									<h2><a href="articles/<%= article.slug %>">
+											<%= article.title %>
+										</a></h2>
+									<ul class="post-tags">
+										<li>by <a href="#">Stan Enemy</a></li>
+										<li>
+											<%= article.createdAt.toLocaleDateString() %>
+										</li>
+									</ul>
 								</div>
-								<a class="text-link" href="#">Food</a>
-								<h2><a href="articles/<%= article.slug %>"><%= article.title %></a></h2>
-								<ul class="post-tags">
-									<li>by <a href="#">Stan Enemy</a></li>
-									<li><%= article.createdAt.toLocaleDateString() %></li>
-								</ul>
-							</div>
-							<ul class="list-thumb-posts">
+								<!-- <ul class="list-thumb-posts">
 								<li>
 									<div class="image-holder"><img src="<%= article.path %>" alt=""></div>
 									<div class="list-post-content">
@@ -120,12 +214,12 @@
 									</div>
 								</li>
 							</ul>
-							<a class="button-one" href="#">Load More</a>
-						</div>
+							<a class="button-one" href="#">Load More</a> -->
+							</div>
+							<%}%>
+								<% }) %>
 
-						<% }) %>
-					
-						<!-- <div class="col-lg-4 col-md-6">
+									<!-- <div class="col-lg-4 col-md-6">
 							<div class="news-post standard-post left-align">
 								<div class="image-holder">
 									<a href="single-post.html"><img src="/images/upload/blog/c16.jpg" alt=""></a>
@@ -174,8 +268,8 @@
 							</ul>
 							<a class="button-one" href="#">Load More</a>
 						</div> -->
-					
-						<!-- <div class="col-lg-4 col-md-6">
+
+									<!-- <div class="col-lg-4 col-md-6">
 							<div class="news-post standard-post left-align">
 								<div class="image-holder">
 									<a href="single-post.html"><img src="/images/upload/blog/c9.jpg" alt=""></a>
@@ -226,224 +320,251 @@
 							<a class="button-one" href="#">Load More</a>
 						</div> -->
 
-					</div>
 				</div>
 			</div>
-		</section>
-		<!-- End fresh section -->
+		</div>
+	</section>
+	<!-- End fresh section -->
 
-		<!-- video section 
+	<!-- video section 
 			================================================== -->
-		<section class="video-section light-version">
-			<div class="container">
-				<div class="title-section text-center">
-					<h1>Popular Video</h1>
-				</div>
-				<div class="video-box owl-wrapper">
-					
-					<div class="owl-carousel" data-num="3">
-					
-						<div class="item">
-							<div class="news-post video-post">
-								<div class="image-holder">
-									<img src="/images/upload/blog/v1.jpg" alt="">
-									<div class="hover-video">
-										<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i class="fa fa-play"></i></span></a>
-									</div>
-								</div>
-								<a class="text-link" href="#">Food</a>
-								<h2><a href="single-post.html">Aliquam tincidunt mauris eu risus.</a></h2>
-								<ul class="post-tags">
-									<li>3 days ago</li>
-								</ul>
-							</div>
-						</div>
-					
-						<div class="item">
-							<div class="news-post video-post">
-								<div class="image-holder">
-									<img src="/images/upload/blog/v2.jpg" alt="">
-									<div class="hover-video">
-										<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i class="fa fa-play"></i></span></a>
-									</div>
-								</div>
-								<a class="text-link" href="#">Lifestyle</a>
-								<h2><a href="single-post.html">Praesent placerat quiseros.</a></h2>
-								<ul class="post-tags">
-									<li>3 days ago</li>
-								</ul>
-							</div>
-						</div>
-					
-						<div class="item">
-							<div class="news-post video-post">
-								<div class="image-holder">
-									<img src="/images/upload/blog/v3.jpg" alt="">
-									<div class="hover-video">
-										<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i class="fa fa-play"></i></span></a>
-									</div>
-								</div>
-								<a class="text-link" href="#">Travel</a>
-								<h2><a href="single-post.html">Vestibulum auctor dapibus neque.</a></h2>
-								<ul class="post-tags">
-									<li>3 days ago</li>
-								</ul>
-							</div>
-						</div>
-					
-						<div class="item">
-							<div class="news-post video-post">
-								<div class="image-holder">
-									<img src="/images/upload/blog/v1.jpg" alt="">
-									<div class="hover-video">
-										<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i class="fa fa-play"></i></span></a>
-									</div>
-								</div>
-								<a class="text-link" href="#">Food</a>
-								<h2><a href="single-post.html">Aliquam tincidunt mauris eu risus.</a></h2>
-								<ul class="post-tags">
-									<li>3 days ago</li>
-								</ul>
-							</div>
-						</div>
+	<section class="video-section light-version">
+		<div class="container">
+			<div class="title-section text-center">
+				<h1>Popular Video</h1>
+			</div>
+			<div class="video-box owl-wrapper">
 
+				<div class="owl-carousel" data-num="3">
+
+					<div class="item">
+						<div class="news-post video-post">
+							<div class="image-holder">
+								<img src="/images/upload/blog/v2.jpg" alt="">
+								<div class="hover-video">
+									<a href="#" onclick="lightbox_open()"><span><i class="fa fa-play"></i></span></a>
+								</div>
+							</div>
+							<a class="text-link" href="#">Lifestyle</a>
+							<h2><a href="single-post.html">Praesent placerat quiseros.</a></h2>
+							<ul class="post-tags">
+								<li>3 days ago</li>
+							</ul>
+						</div>
 					</div>
+
+					<div class="item">
+						<div class="news-post video-post">
+							<div class="image-holder">
+								<img src="/images/upload/blog/v2.jpg" alt="">
+								<div class="hover-video">
+									<a href="#" onclick="lightbox_open()"><span><i class="fa fa-play"></i></span></a>
+								</div>
+							</div>
+							<a class="text-link" href="#">Lifestyle</a>
+							<h2><a href="single-post.html">Praesent placerat quiseros.</a></h2>
+							<ul class="post-tags">
+								<li>3 days ago</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="item">
+						<div class="news-post video-post">
+							<div class="image-holder">
+								<img src="/images/upload/blog/v3.jpg" alt="">
+								<div class="hover-video">
+									<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i
+												class="fa fa-play"></i></span></a>
+								</div>
+							</div>
+							<a class="text-link" href="#">Travel</a>
+							<h2><a href="single-post.html">Vestibulum auctor dapibus neque.</a></h2>
+							<ul class="post-tags">
+								<li>3 days ago</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="item">
+						<div class="news-post video-post">
+							<div class="image-holder">
+								<img src="/images/upload/blog/v1.jpg" alt="">
+								<div class="hover-video">
+									<a class="video-link iframe" href="https://vimeo.com/81102131"><span><i
+												class="fa fa-play"></i></span></a>
+								</div>
+							</div>
+							<a class="text-link" href="#">Food</a>
+							<h2><a href="single-post.html">Aliquam tincidunt mauris eu risus.</a></h2>
+							<ul class="post-tags">
+								<li>3 days ago</li>
+							</ul>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</section>
-		<!-- End video section -->
+		</div>
+	</section>
+	<!-- End video section -->
 
-		<!-- blog section 
+	<!-- blog section 
 			================================================== -->
-		<section class="blog-section">
-			<div class="container">
-				<div class="title-section">
-					<h1>Latest-Posts</h1>
-				</div>
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="blog-box grid-style">
+	<section class="blog-section">
+		<div class="container">
+			<div class="title-section">
+				<h1>Latest-Posts</h1>
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="blog-box grid-style">
 
-							<div class="news-post article-post">
-								<div class="image-holder">
-									<img src="/images/upload/blog/home4/img1.jpg" alt="">
-								</div>
-								<a class="text-link" href="#">Travel</a>
-								<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
-								<ul class="post-tags">
-									<li>3 days ago</li>
-									<li><a href="#">3 comments</a></li>
-									<li>by <a href="#">John Smith</a></li>
-								</ul>
-								<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
-								<a class="text-link" href="single-post.html">Read More</a>
+						<div class="news-post article-post">
+							<div class="image-holder">
+								<img src="/images/upload/blog/home4/img1.jpg" alt="">
 							</div>
+							<a class="text-link" href="#">Travel</a>
+							<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
+							<ul class="post-tags">
+								<li>3 days ago</li>
+								<li><a href="#">3 comments</a></li>
+								<li>by <a href="#">John Smith</a></li>
+							</ul>
+							<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate
+								magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
+							<a class="text-link" href="single-post.html">Read More</a>
+						</div>
 
-							<div class="row">
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c5.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Food</a>
-										<h2><a href="single-post.html">Nullam malesuada eratut turpis.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c5.jpg" alt="">
 									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c10.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Lifestyle</a>
-										<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
-									</div>
+									<a class="text-link" href="#">Food</a>
+									<h2><a href="single-post.html">Nullam malesuada eratut turpis.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c3.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Travel</a>
-										<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c10.jpg" alt="">
 									</div>
+									<a class="text-link" href="#">Lifestyle</a>
+									<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
 								</div>
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c4.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Travel</a>
-										<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c11.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Lifestyle</a>
-										<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="news-post article-post">
-										<div class="image-holder">
-											<img src="/images/upload/blog/c6.jpg" alt="">
-										</div>
-										<a class="text-link" href="#">Lifestyle</a>
-										<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
-										<ul class="post-tags">
-											<li>3 days ago</li>
-											<li><a href="#">3 comments</a></li>
-											<li>by <a href="#">John Smith</a></li>
-										</ul>
-										<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...</p>
-									</div>
-								</div>
-							</div>
-							<div class="center-button">
-								<a class="button-one" href="#">Load More</a>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c3.jpg" alt="">
+									</div>
+									<a class="text-link" href="#">Travel</a>
+									<h2><a href="single-post.html">Morbi in sem quisdui placerat ornare.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c4.jpg" alt="">
+									</div>
+									<a class="text-link" href="#">Travel</a>
+									<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c11.jpg" alt="">
+									</div>
+									<a class="text-link" href="#">Lifestyle</a>
+									<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="news-post article-post">
+									<div class="image-holder">
+										<img src="/images/upload/blog/c6.jpg" alt="">
+									</div>
+									<a class="text-link" href="#">Lifestyle</a>
+									<h2><a href="single-post.html">Cras iaculis ultricies nulla.</a></h2>
+									<ul class="post-tags">
+										<li>3 days ago</li>
+										<li><a href="#">3 comments</a></li>
+										<li>by <a href="#">John Smith</a></li>
+									</ul>
+									<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu
+										vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt ...
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="center-button">
+							<a class="button-one" href="#">Load More</a>
+						</div>
 					</div>
-					<%- include('partials/sidebar') -%>
 				</div>
+				<%- include('partials/sidebar') -%>
 			</div>
-		</section>
-		<!-- End blog section -->
+		</div>
+	</section>
+	<!-- End blog section -->
+	
+	
+	<!-- video popup code -->
+	<div id="light">
+		<a class="boxclose" id="boxclose" onclick="lightbox_close();"></a>
+		<object data='https://www.youtube.com/embed/nfk6sCzRTbM?autoplay=1' 
+        width='560px' height='315px'>
+    </object>
 
+	</div>
+	<div id="fade" onClick="lightbox_close();"></div>
+	<!-- End video popup code -->
+	
 	<%- include('partials/footer') -%>
