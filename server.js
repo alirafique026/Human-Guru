@@ -42,7 +42,6 @@ var storage = multer.diskStorage({
 app.get('/',async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
   const categories = await Category.find()
-  console.log(categories)
   res.render('home' , {articles: articles, categories: categories})
 })
 
@@ -59,9 +58,10 @@ app.get('/contact',async (req, res) => {
 // Search Results
 app.post('/search', async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
+  const categories = await Category.find()
   const query = req.body.search.toLowerCase()
   const count = 0
-  res.render('search' , {articles: articles, query: query, count: count})
+  res.render('search' , {articles: articles, query: query, count: count, categories: categories})
 })
 
 // Storing Images to directory

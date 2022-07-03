@@ -172,9 +172,11 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
 // Rendering a particular post 
 router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
+  const articles = await Article.find()
+  const categories = await Category.find()
   if (article == null) res.redirect('/')
   const comments = article.comments
-  res.render('single-post', { article: article, comments: comments })
+  res.render('single-post', { articles: articles, comments: comments, categories: categories, article: article })
 })
 
 // Saving new post
