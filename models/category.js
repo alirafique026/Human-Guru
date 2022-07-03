@@ -7,8 +7,8 @@ const categorySchema = new mongoose.Schema({
   catimg: {
     type: String
   },
-  count: {
-    type: Number
+  counter: {
+    type: Number,
   }
 })
 

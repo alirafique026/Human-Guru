@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const Article = require('./../models/article')
 const Category = require('./../models/category')
 const fs = require('fs')
@@ -10,7 +11,7 @@ const router = express.Router(),
   passportLocalMongoose = require("passport-local-mongoose");
 
 router.use(bodyParser.urlencoded({ extended: true }));
-
+mongoose.set('useFindAndModify', false);
 // for authentication
 router.use(require("express-session")({
   secret: "type anything here",
@@ -182,7 +183,7 @@ router.post('/', async (req, res, next) => {
   next()
 }, saveArticleAndRedirect('new'))
 
-// Finding article for a particular id
+// Finding post for a particular id and editing
 router.put('/:id', async (req, res, next) => {
   req.article = await Article.findById(req.params.id)
   next()
@@ -193,14 +194,15 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
   const id = req.params.id
   const article = await Article.findById(id)
   const path = article.path
-  console.log(path)
+  const categ = article.category
   await Article.findByIdAndDelete(id)
   res.redirect('/all')
-  deletefile(path)
+  deletefile(path,categ)
 })
 
-// Deleting files related to deleted post
-function deletefile(path) {
+// Deleting files and category counter related to deleted post
+function deletefile(path,categ) {
+  Category.findOneAndUpdate({category: categ}, { $inc: {'counter': -1 }}).exec()
   const append = './public'
   const appended = append.concat(path)
   fs.unlink(appended, (err) => {
@@ -217,6 +219,7 @@ function deletefile(path) {
 function saveArticleAndRedirect(path) {
   return async (req, res) => {
     let article = req.article
+    const cat = article.category
     article.title = req.body.title
     article.description = req.body.description
     article.markdown = req.body.markdown
@@ -226,12 +229,19 @@ function saveArticleAndRedirect(path) {
     // Saving keywords
     let kw = words.split(',')
     article.keywords = kw
+    if(cat !== article.category)
+    {
+      Category.findOneAndUpdate({category: cat}, { $inc: {'counter': -1 }}).exec()
+      Category.findOneAndUpdate({category: article.category}, { $inc: {'counter': 1 }}).exec()
+
+    }
     try {
       article = await article.save()
       // res.redirect(`/articles/${article.slug}`)
       res.redirect('/all')
     } catch (e) {
-      res.render(`articles/${path}`, { article: article })
+      // res.render(`articles/${path}`, { article: article })
+      console.log(e)
     }
   }
 }
