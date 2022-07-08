@@ -11,7 +11,10 @@
   <label for="markdown">Markdown</label>
   <textarea required name="markdown" id="markdown" class="form-control"><%= article.markdown %></textarea>
 </div>
-
+<div class="form-group">
+  <label for="source">Source</label>
+  <input required value="<%= article.source %>" type="text" name="source" id="source" class="form-control">
+</div>
 <div class="form-group">
   <label for="category">Choose a category:</label>
 <select name="category" id="category">
@@ -25,8 +28,19 @@
 <div class="form-group">
   <% if(article.trending == "trending") {%>
   <% val = "checked"}%>
-  <input type="checkbox" id="trending" name="trending" value="trending" <%=val%> >
-  <label for="trending"> Is Trending</label>
+  <input type="radio" id="trending" name="trending" value="trending" <%=val%> >
+  <label for="trending">Trending</label>
+  <% if(article.trending == "subtrending") {%>
+  <% val1 = "checked"}%>
+  <input type="radio" id="subtrending" name="trending" value="subtrending" <%=val1%> >
+  <label for="subtrending">Sub-Trending</label>
+</div>
+
+<div class="form-group">
+  <% if(article.homepage == "homepage") {%>
+  <% val2 = "checked"}%>
+  <input type="checkbox" id="homepage" name="homepage" value="homepage" <%=val2%> >
+  <label for="homepage">Home Page</label>
 </div>
 
 

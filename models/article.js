@@ -38,6 +38,10 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  homepage: {
+    type: String,
+    required: false
+  },
   keywords: {
     type: Array
   },
@@ -47,10 +51,13 @@ const articleSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true
-  }
+  },
+  source: {
+    type: String,
+  },
 })
 
-articleSchema.pre('validate', function(next) {
+articleSchema.pre('validate', function (next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true })
   }

@@ -213,7 +213,9 @@ router.get('/all', isLoggedIn, async (req, res) => {
 router.get('/new', isLoggedIn, async (req, res) => {
   const categories = await Category.find()
   let val = "unchecked"
-  res.render('articles/new', { article: new Article(), categories: categories, val: val })
+  let val1 = "unchecked"
+  let val2 = "unchecked"
+  res.render('articles/new', { article: new Article(), categories: categories, val: val, val1: val1, val2: val2 })
 })
 
 // Editing Post
@@ -221,8 +223,10 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
   const article = await Article.findById(req.params.id)
   const categories = await Category.find()
   let val = "unchecked"
+  let val1 = "unchecked"
+  let val2 = "unchecked"
   const aid = req.params.id
-  res.render('articles/edit', { article: article, aid: aid, categories: categories, val: val })
+  res.render('articles/edit', { article: article, aid: aid, categories: categories, val: val, val1: val1, val2: val2 })
 })
 
 // router.get('/:slug', async (req, res) => {
@@ -288,7 +292,9 @@ function saveArticleAndRedirect(path) {
     article.description = req.body.description
     article.markdown = req.body.markdown
     article.trending = req.body.trending
+    article.homepage = req.body.homepage
     article.category = req.body.category
+    article.source = req.body.source
     let words = req.body.key.toLowerCase()
     // Saving keywords
     let kw = words.split(',')

@@ -1,4 +1,8 @@
 const mongoose = require('mongoose')
+const marked = require('marked')
+const createDomPurify = require('dompurify')
+const { JSDOM } = require('jsdom')
+const dompurify = createDomPurify(new JSDOM().window)
 
 const videoSchema = new mongoose.Schema({
   category: {
@@ -12,7 +16,8 @@ const videoSchema = new mongoose.Schema({
     default: Date.now
   },
   source: {
-    type: String
+    type: String,
+    required: true
   },
 })
 
