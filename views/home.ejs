@@ -95,10 +95,11 @@
 											</div>
 											<%}%>
 												<% }) %>
-													<!-- <div style="display: flex; align-items: center; justify-content: center;">
-						<a class="button-one" href="#">Load More</a>
-					  </div> -->
 
+
+				</div>
+				<div style="display: flex; align-items: center; justify-content: center;">
+					<a class="button-one" href="/single/trending">Load More</a>
 				</div>
 			</div>
 		</div>
@@ -119,7 +120,10 @@
 					<% videos.forEach(video=> { %>
 						<div class="item">
 							<div class="news-post video-post">
-							<iframe width="370" height="270" src="<%= video.source %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe width="370" height="270" src="<%= video.source %>" title="YouTube video player"
+									frameborder="0"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen></iframe>
 								<a class="text-link" href="#">
 									<%=video.category%>
 								</a>
@@ -136,6 +140,9 @@
 						<%})%>
 				</div>
 			</div>
+		</div>
+		<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+			<a class="button-one" href="/single/video">Load More</a>
 		</div>
 	</section>
 	<!-- End video section -->
@@ -177,7 +184,7 @@
 								<% }%>
 
 									<div class="row">
-										<% for(i=1; i<=5; i++) { %>
+										<% for(i=1; i<=4; i++) { %>
 											<% article=articles[i]%>
 												<div class="col-md-6">
 													<div class="news-post article-post">
@@ -210,6 +217,9 @@
 							<a class="button-one" href="#">Load More</a>
 						</div> -->
 					</div>
+					<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+						<a class="button-one" href="/single/latest">Load More</a>
+					</div>
 				</div>
 				<%- include('partials/sidebar') -%>
 			</div>
@@ -217,4 +227,4 @@
 	</section>
 	<!-- End blog section -->
 
-			<%- include('partials/footer') -%>
+	<%- include('partials/footer') -%>

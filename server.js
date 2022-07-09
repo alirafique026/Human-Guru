@@ -68,6 +68,16 @@ app.post('/search', async (req, res) => {
   res.render('search' , {articles: articles, query: query, count: count, categories: categories})
 })
 
+// Single Page
+app.get('/single/:type',async (req, res) => {
+  const articles = await Article.find().sort({ createdAt: 'desc' })
+  const categories = await Category.find()
+  const video = await Video.find()
+  const insta = await Insta.find()
+  const type = req.params.type
+  res.render('group' , {articles: articles, categories: categories, videos: video, insta: insta, type: type})
+})
+
 // Storing Images to directory
 app.post('/profile', upload.single('avatar'), async function (req, res, next) {
 

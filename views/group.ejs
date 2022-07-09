@@ -1,0 +1,138 @@
+<%- include('partials/header') -%>
+
+    <!-- blog section 
+			================================================== -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="title-section">
+                <h1>
+                    <%= type.toUpperCase() %>
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="blog-box grid-style">
+                        <div class="row">
+                            <% if(type == "latest") { %>
+                            <% articles.forEach(article=> { %>
+                                <div class="col-md-6">
+                                    <div class="news-post article-post">
+                                        <div class="image-holder">
+                                            <img src="<%= article.path %>" alt="">
+                                        </div>
+                                        <a class="text-link">
+                                            <%= article.category%>
+                                        </a>
+                                        <h2><a href="articles/<%= article.slug %>">
+                                                <%= article.title%>.
+                                            </a></h2>
+                                        <ul class="post-tags">
+                                            <li>
+                                                <%= article.createdAt.toLocaleDateString()%>
+                                            </li>
+                                            <!-- <li><a href="#">3 comments</a></li> -->
+                                            <li><a href="<%= article.source %>">Source</a></li>
+                                        </ul>
+                                        <p>
+                                            <%= article.description%> ...
+                                        </p>
+                                        <a class="text-link" href="articles/<%= article.slug %>">Read
+                                            More</a>
+                                    </div>
+                                </div>
+                                <% })%>
+                                <% } else if(type == "trending") { %>
+                                    <% articles.forEach(article=> { %>
+                                        <%if(article.trending=="trending" ) {%>
+                                        <div class="col-md-6">
+                                            <div class="news-post article-post">
+                                                <div class="image-holder">
+                                                    <img src="<%= article.path %>" alt="">
+                                                </div>
+                                                <a class="text-link">
+                                                    <%= article.category%>
+                                                </a>
+                                                <h2><a href="articles/<%= article.slug %>">
+                                                        <%= article.title%>.
+                                                    </a></h2>
+                                                <ul class="post-tags">
+                                                    <li>
+                                                        <%= article.createdAt.toLocaleDateString()%>
+                                                    </li>
+                                                    <!-- <li><a href="#">3 comments</a></li> -->
+                                                    <li><a href="<%= article.source %>">Source</a></li>
+                                                </ul>
+                                                <p>
+                                                    <%= article.description%> ...
+                                                </p>
+                                                <a class="text-link" href="articles/<%= article.slug %>">Read
+                                                    More</a>
+                                            </div>
+                                        </div>
+                                        <% }%>
+                                        <% })%>
+                                        <% } else if(type == "video") {%>
+                                            <% videos.forEach(video=> { %>
+                                                <div class="col-md-6">
+                                                    <div class="news-post video-post">
+                                                        <iframe width="370" height="270" src="<%= video.source %>" title="YouTube video player"
+                                                            frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen></iframe>
+                                                        <a class="text-link" href="#">
+                                                            <%=video.category%>
+                                                        </a>
+                                                        <h2><a style="color: black;" href="single-post.html">
+                                                                <%=video.title%>.
+                                                            </a></h2>
+                                                        <ul class="post-tags">
+                                                            <li>
+                                                                <%=video.createdAt.toLocaleDateString()%>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <%})%>
+                                                <% } else { %>
+                                                    <% articles.forEach(article=> { %>
+                                                            <% var words = type.split('-') %>
+                                                            <% var ty =  words.join(' ') %>
+                                                        <%if(article.category == ty ) {%>
+                                                        <div class="col-md-6">
+                                                            <div class="news-post article-post">
+                                                                <div class="image-holder">
+                                                                    <img src="<%= article.path %>" alt="">
+                                                                </div>
+                                                                <a class="text-link">
+                                                                    <%= article.category%>
+                                                                </a>
+                                                                <h2><a href="articles/<%= article.slug %>">
+                                                                        <%= article.title%>.
+                                                                    </a></h2>
+                                                                <ul class="post-tags">
+                                                                    <li>
+                                                                        <%= article.createdAt.toLocaleDateString()%>
+                                                                    </li>
+                                                                    <!-- <li><a href="#">3 comments</a></li> -->
+                                                                    <li><a href="<%= article.source %>">Source</a></li>
+                                                                </ul>
+                                                                <p>
+                                                                    <%= article.description%> ...
+                                                                </p>
+                                                                <a class="text-link" href="articles/<%= article.slug %>">Read
+                                                                    More</a>
+                                                            </div>
+                                                        </div>
+                                                        <% }%>
+                                                        <% })%>
+                                        <% }%>
+                        </div>
+                    </div>
+                </div>
+                <%- include('partials/sidebar') -%>
+            </div>
+        </div>
+    </section>
+    <!-- End blog section -->
+
+    <%- include('partials/footer') -%>

@@ -76,17 +76,17 @@ function isLoggedIn(req, res, next) {
   res.redirect("/articles/login");
 }
 // Displaying Instagram Post
-router.get('/insta', async (req, res) => {
+router.get('/insta', isLoggedIn, async (req, res) => {
   const insta = await Insta.find()
   res.render('insta/insta-post', { insta: insta })
 })
 
 // Adding New Instagram Post
-router.get('/insta/new', async (req, res) => {
+router.get('/insta/new', isLoggedIn, async (req, res) => {
   res.render('insta/new-post')
 })
 
-router.post('/insta/new', async (req, res) => {
+router.post('/insta/new', isLoggedIn, async (req, res) => {
   let insta = await new Insta
   insta.post = req.body.post
   try {
@@ -98,12 +98,12 @@ router.post('/insta/new', async (req, res) => {
 })
 
 // Editing Instagram Post
-router.get('/insta/edit/:id', async (req, res) => {
+router.get('/insta/edit/:id', isLoggedIn, async (req, res) => {
   const insta = await Insta.findById(req.params.id)
   res.render('insta/edit-post', { insta: insta })
 })
 
-router.post('/insta/edit/:id', async (req, res) => {
+router.post('/insta/edit/:id', isLoggedIn, async (req, res) => {
   let insta = await Insta.findById(req.params.id)
   insta.post = req.body.post
   try {
