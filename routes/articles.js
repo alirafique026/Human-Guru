@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Article = require('./../models/article')
 const Category = require('./../models/category')
 const Video = require('./../models/video')
+const Insta = require('./../models/insta')
 const fs = require('fs')
 const router = express.Router(),
   passport = require("passport"),
@@ -74,6 +75,44 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect("/articles/login");
 }
+// Displaying Instagram Post
+router.get('/insta', async (req, res) => {
+  const insta = await Insta.find()
+  res.render('insta/insta-post', { insta: insta })
+})
+
+// Adding New Instagram Post
+router.get('/insta/new', async (req, res) => {
+  res.render('insta/new-post')
+})
+
+router.post('/insta/new', async (req, res) => {
+  let insta = await new Insta
+  insta.post = req.body.post
+  try {
+    insta = await insta.save()
+    res.redirect('/articles/insta');
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+// Editing Instagram Post
+router.get('/insta/edit/:id', async (req, res) => {
+  const insta = await Insta.findById(req.params.id)
+  res.render('insta/edit-post', { insta: insta })
+})
+
+router.post('/insta/edit/:id', async (req, res) => {
+  let insta = await Insta.findById(req.params.id)
+  insta.post = req.body.post
+  try {
+    insta = await insta.save()
+    res.redirect('/articles/insta');
+  } catch (e) {
+    console.log(e);
+  }
+})
 
 
 // Displaying all Categories
@@ -240,9 +279,10 @@ router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
   const articles = await Article.find()
   const categories = await Category.find()
+  const insta = await Insta.find()
   if (article == null) res.redirect('/')
   const comments = article.comments
-  res.render('single-post', { articles: articles, comments: comments, categories: categories, article: article })
+  res.render('single-post', { articles: articles, comments: comments, categories: categories, article: article, insta: insta })
 })
 
 // Saving new post

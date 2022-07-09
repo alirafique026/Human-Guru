@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Article = require('./models/article')
 const Category = require('./models/category')
 const Video = require('./models/video')
+const Insta = require('./models/insta')
 const articleRouter = require('./routes/articles')
 const bodyParser = require("body-parser")
 const methodOverride = require('method-override')
@@ -44,7 +45,8 @@ app.get('/',async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
   const categories = await Category.find()
   const video = await Video.find()
-  res.render('home' , {articles: articles, categories: categories, videos: video})
+  const insta = await Insta.find()
+  res.render('home' , {articles: articles, categories: categories, videos: video, insta: insta})
 })
 
 // About Page
@@ -166,6 +168,9 @@ app.get('/video', async (req, res) => {
   res.redirect('articles/video')
 })
 
+app.get('/insta', async (req, res) => {
+  res.redirect('articles/insta')
+})
 
 
 app.use('/articles', articleRouter)
