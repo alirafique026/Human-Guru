@@ -385,6 +385,17 @@ router.delete('/contact/:id', isLoggedIn, async (req, res) => {
   res.redirect('/articles/contact/all')
 })
 
+
+// Filters
+router.get('/single/:type', isLoggedIn, async (req, res) => {
+  const articles = await Article.find().sort({ createdAt: 'desc' })
+  const categories = await Category.find()
+  const video = await Video.find()
+  const insta = await Insta.find()
+  const type = req.params.type
+  res.render('filter' , {articles: articles, categories: categories, videos: video, insta: insta, type: type})
+})
+
 // Error Page
 router.get("/articles/*", function (req, res) {
   res.render("error.ejs");
