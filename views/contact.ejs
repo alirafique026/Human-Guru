@@ -17,18 +17,18 @@
 					<div class="col-lg-8">
 						<div class="contact-box">
 							<p>Contact us to find out more or how we can help you better.</p>
-							<form id="contact-form">
+							<form id="contact-form" action="/articles/contact/new" method="post">
 								<div class="row">
 									<div class="col-md-6">
 										<input name="name" id="name" type="text" placeholder="Name*">
 									</div>
 									<div class="col-md-6">
-										<input name="mail" id="mail" type="text" placeholder="Email*">
+										<input name="email" id="mail" type="email" placeholder="Email*">
 									</div>
 								</div>
 								<input name="subject" id="subject" type="text" placeholder="Subject">
-								<textarea name="comment" id="comment" placeholder="Your Message*"></textarea>
-								<input type="submit" id="submit_contact" value="Submit">
+								<textarea name="message" id="comment" placeholder="Your Message*"></textarea>
+								<button type="submit" style="width: 100%; background: #e74c3c; border: none; cursor: pointer; height: 42px; border-radius: 2px;">Submit</button>
 								<div id="msg" class="message"></div>
 							</form>
 						</div>

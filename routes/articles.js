@@ -4,6 +4,7 @@ const Article = require('./../models/article')
 const Category = require('./../models/category')
 const Video = require('./../models/video')
 const Insta = require('./../models/insta')
+const Contact = require('./../models/contact')
 const fs = require('fs')
 const router = express.Router(),
   passport = require("passport"),
@@ -354,6 +355,35 @@ function saveArticleAndRedirect(path) {
     }
   }
 }
+
+// Displaying all Contact Queries
+router.get('/contact/all', isLoggedIn, async (req, res) => {
+  const contacts = await Contact.find()
+  res.render('contact/all-queries', { contacts: contacts })
+})
+
+// Adding New Contact Entry
+router.post('/contact/new', isLoggedIn, async (req, res) => {
+  let contact = await new Contact
+  contact.name = req.body.name
+  contact.email = req.body.email
+  contact.subject = req.body.subject
+  contact.message = req.body.message
+  try {
+    contact = await contact.save()
+    res.redirect('/contact-us');
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+
+// Deleting Contact Entry
+router.delete('/contact/:id', isLoggedIn, async (req, res) => {
+  const id = req.params.id
+  await Contact.findByIdAndDelete(id)
+  res.redirect('/articles/contact/all')
+})
 
 // Error Page
 router.get("/articles/*", function (req, res) {

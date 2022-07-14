@@ -1,0 +1,50 @@
+<%- include('../partials/admin-header') -%>
+    <section style="margin: 50px;">
+        <div class="container">
+            <h1 class="mb-4">All Queries</h1>
+
+            <% contacts.forEach(contact=> { %>
+                <div style="margin: 20px 0px 20px 0px;">
+                    <h1 class="card-title">Name:</h1>
+                    <div class="card mt-4">
+                        <h4 class="card-title">
+                            <%= contact.name %>
+                        </h4>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0px 20px 0px;">
+                    <h1 class="card-title">E-mail:</h1>
+                    <div class="card mt-4">
+                        <h4 class="card-title">
+                            <%= contact.email %>
+                        </h4>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0px 20px 0px;">
+                    <h1 class="card-title">Subject:</h1>
+                    <div class="card mt-4">
+                        <h4 class="card-title">
+                            <%= contact.subject %>
+                        </h4>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0px 20px 0px;">
+                    <h1 class="card-title">Message:</h1>
+                    <div class="card mt-4">
+                        <h4 class="card-title">
+                            <%= contact.message %>
+                        </h4>
+                    </div>
+                </div>
+
+                <form action="/articles/contact/<%= contact.id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <% }) %>
+        </div>
+    </section>
+
+    <%- include('../partials/footer') -%>

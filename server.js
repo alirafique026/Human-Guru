@@ -55,7 +55,7 @@ app.get('/about',async (req, res) => {
 })
 
 // Contact Page
-app.get('/contact',async (req, res) => {
+app.get('/contact-us',async (req, res) => {
   res.render('contact')
 })
 
@@ -180,6 +180,10 @@ app.get('/video', async (req, res) => {
 
 app.get('/insta', async (req, res) => {
   res.redirect('articles/insta')
+})
+
+app.get('/articles/contact-us', async (req, res) => {
+  res.redirect('/contact-us')
 })
 
 

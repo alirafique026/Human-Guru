@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Instagram Post</title>
-</head>
-
-<body>
+<%- include('../partials/admin-header') -%>
+<section style="margin: 50px;">
     <div class="container">
         <h1 class="mb-4">Instagram Post</h1>
-        <a href="/articles/insta/new" class="btn btn-success">New Post</a>
+        <!-- <a href="/articles/insta/new" class="btn btn-success">New Post</a> -->
 
         <% insta.forEach(insta=> { %>
             <blockquote class="instagram-media" data-instgrm-permalink="<%= insta.post %>" data-instgrm-version="14"
@@ -108,6 +97,6 @@
             <a href="/articles/insta/edit/<%= insta.id %>" class="btn btn-info" target="_blank">Edit</a>
             <% }) %>
     </div>
-</body>
+</section>
 
-</html>
+<%- include('../partials/footer') -%>
